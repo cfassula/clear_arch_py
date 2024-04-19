@@ -1,0 +1,28 @@
+GET http://localhost:8000/categories/
+
+### Get a category by id
+
+GET http://localhost:8000/categories/25b9ada5-6cfd-4e8f-a8e9-0868372f0bff
+
+### Create a new category
+POST http://localhost:8000/categories/
+Content-Type: application/json
+
+{
+    "name": "Category 1"
+}
+
+### update a new category
+PUT http://localhost:8000/categories/d88640c0-e4f2-4726-832c-b4fa137013fb
+Content-Type: application/json
+
+{
+    "name": "Category Updated",
+    "description": "Category Description Updated",
+    "is_active": false
+}
+
+### Delete a category by id
+
+DELETE  http://localhost:8000/categories/25b9ada5-6cfd-4e8f-a8e9-0868372f0bff
+

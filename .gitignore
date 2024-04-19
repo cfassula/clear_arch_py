@@ -1,0 +1,16 @@
+.history
+.github
+.docker/zsh/history/.zsh_history
+*.pyc
+
+__pypackages__
+.pytest_cache
+.coverage
+__coverage
+db.sqlite3
+
+envs/.env
+envs/.env.test
+envs/.env.e2e
+
+docker-compose.override.yaml
