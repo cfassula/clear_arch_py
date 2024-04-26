@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.test import APIClient
 
 
+@pytest.mark.group('e2e')
 @pytest.mark.django_db
 class TestCategoriesPostE2E:
 
