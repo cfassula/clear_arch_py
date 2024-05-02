@@ -42,6 +42,10 @@ class TestCategoryResourceGetMethodInt:
             url=f'/?{urlencode(send_data)}'
         )
         response = self.resource.get(request)
+        print('XXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+        print(response.data)
+        print(expected.entities)
+        print(expected.meta)
 
         assert response.status_code == 200
         assert response.data == {

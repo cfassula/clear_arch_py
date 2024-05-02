@@ -1,6 +1,5 @@
 # pylint: disable=no-member
-from typing import List, Type
-from typing import TYPE_CHECKING
+from typing import List, Type, TYPE_CHECKING
 from django.core import exceptions as django_exceptions
 from django.core.paginator import Paginator
 from core.__seedwork.domain.exceptions import NotFoundException
@@ -65,18 +64,23 @@ class CategoryDjangoRepository(CategoryRepository):
         query = self.model.objects.all()
 
         if input_params.filter:
-            query = query.filter(name__icontains=input_params.filter)
+            filtered_query = query.filter(name__icontains=input_params.filter)
+        else:
+            filtered_query = query
+            
         if input_params.sort and input_params.sort in self.sortable_fields:
-            query = query.order_by(
+            ordered_query = filtered_query.order_by(
                 input_params.sort if input_params.sort_dir == 'asc' else f"-{input_params.sort}")
         else:
-            query = query.order_by('-created_at')
-        paginator = Paginator(query, input_params.per_page)
+            ordered_query = filtered_query.order_by('-created_at')
+
+        paginator = Paginator(ordered_query, input_params.per_page)
+
         pag_obj = paginator.page(input_params.page)
+        items = [CategoryModelMapper.to_entity(model_obj) for model_obj in pag_obj.object_list]
 
         return CategoryRepository.SearchResult(
-            items=[CategoryModelMapper.to_entity(
-                    model) for model in pag_obj.object_list],
+            items=items,
             total=paginator.count,
             current_page=input_params.page,
             per_page=input_params.per_page,

@@ -68,7 +68,7 @@ class TestCategoryDjangoRepositoryInt(unittest.TestCase):
         with self.assertRaises(NotFoundException) as assert_error:
             self.repo.find_by_id(unique_entity_id)
         self.assertEqual(assert_error.exception.args[0],
-                         "Entity not found using ID 'af3e4b3e-0b3d-4b3b-8b3b-3b3b3b3b3b3b'")
+                        "Entity not found using ID 'af3e4b3e-0b3d-4b3b-8b3b-3b3b3b3b3b3b'")
 
     def test_find_by_id(self):
         ''' Test InMemoryRepository find_by_id method'''
@@ -141,7 +141,7 @@ class TestCategoryDjangoRepositoryInt(unittest.TestCase):
         with self.assertRaises(NotFoundException) as assert_error:
             self.repo.delete(unique_entity_id)
         self.assertEqual(assert_error.exception.args[0],
-                         "Entity not found using ID 'af3e4b3e-0b3d-4b3b-8b3b-3b3b3b3b3b3b'")
+                        "Entity not found using ID 'af3e4b3e-0b3d-4b3b-8b3b-3b3b3b3b3b3b'")
 
     def test_delete(self):
         category = Category(
@@ -173,7 +173,7 @@ class TestCategoryDjangoRepositoryInt(unittest.TestCase):
             CategoryModel,
             _quantity=16,
             created_at=seq(datetime.datetime.now(),
-                          datetime.timedelta(days=1)),
+                        datetime.timedelta(days=1)),
         )
         models.reverse()
 
@@ -198,27 +198,30 @@ class TestCategoryDjangoRepositoryInt(unittest.TestCase):
         default_props = {
             'description': None,
             'is_active': True,
-            'created_at': timezone.now()
         }
         models = CategoryModel.objects.bulk_create([
             CategoryModel(
                 id=UniqueEntityId().id,
                 name='test',
+                created_at=timezone.now(),
                 **default_props
             ),
             CategoryModel(
                 id=UniqueEntityId().id,
                 name='a',
+                created_at=timezone.now(),
                 **default_props
             ),
             CategoryModel(
                 id=UniqueEntityId().id,
                 name='TEST',
+                created_at=timezone.now(),
                 **default_props
             ),
             CategoryModel(
                 id=UniqueEntityId().id,
                 name='TeSt',
+                created_at=timezone.now(),
                 **default_props
             ),
         ])
@@ -230,20 +233,22 @@ class TestCategoryDjangoRepositoryInt(unittest.TestCase):
         )
 
         search_result = self.repo.search(search_params)
+        print(search_result)
+        search_expected = CategoryRepository.SearchResult(
+            items=[
+                CategoryModelMapper.to_entity(models[3]),
+                CategoryModelMapper.to_entity(models[2])
+            ],
+            total=3,
+            current_page=1,
+            per_page=2,
+            sort=None,
+            sort_dir=None,
+            filter='E'
+        )
         self.assertEqual(
             search_result,
-            CategoryRepository.SearchResult(
-                items=[
-                    CategoryModelMapper.to_entity(models[0]),
-                    CategoryModelMapper.to_entity(models[2])
-                ],
-                total=3,
-                current_page=1,
-                per_page=2,
-                sort=None,
-                sort_dir=None,
-                filter='E'
-            )
+            search_expected
         )
 
     def test_search_applying_paginate_and_sort(self):
@@ -381,33 +386,37 @@ class TestCategoryDjangoRepositoryInt(unittest.TestCase):
     def test_search_applying_filter_sort_and_paginate(self):
         default_props = {
             'description': None,
-            'is_active': True,
-            'created_at': timezone.now()
+            'is_active': True,            
         }
         models = CategoryModel.objects.bulk_create([
             CategoryModel(
                 id=UniqueEntityId().id,
                 name='test',
+                created_at=timezone.now() + datetime.timedelta(days=7),
                 **default_props
             ),
             CategoryModel(
                 id=UniqueEntityId().id,
                 name='a',
+                created_at=timezone.now() + datetime.timedelta(days=2),
                 **default_props
             ),
             CategoryModel(
                 id=UniqueEntityId().id,
                 name='TEST',
+                created_at=timezone.now() + datetime.timedelta(days=6),
                 **default_props
             ),
             CategoryModel(
                 id=UniqueEntityId().id,
                 name='e',
+                created_at=timezone.now() + datetime.timedelta(days=4),
                 **default_props
             ),
             CategoryModel(
                 id=UniqueEntityId().id,
                 name='TeSt',
+                created_at=timezone.now() + datetime.timedelta(days=5),
                 **default_props
             )
         ])

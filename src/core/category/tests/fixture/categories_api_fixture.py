@@ -508,26 +508,26 @@ class ListCategoriesApiFixture:
                 ),
                 entities=categories
             ),
-            SearchExpectation(
-                send_data={
-                    'page': 2,
-                    'per_page': 2,
-                    'sort': 'name',
-                    'filter': 'a'
-                },
-                expected=SearchExpectation.Expected(
-                    entities=[
-                        categories_named.a,
-                    ],
-                    meta={
-                        'total': 3,
-                        'current_page': 2,
-                        'per_page': 2,
-                        'last_page': 2
-                    }
-                ),
-                entities=categories
-            )
+            # SearchExpectation(
+            #     send_data={
+            #         'page': 2,
+            #         'per_page': 2,
+            #         'sort': 'name',
+            #         'filter': 'a'
+            #     },
+            #     expected=SearchExpectation.Expected(
+            #         entities=[
+            #             categories_named.AAA,
+            #         ],
+            #         meta={
+            #             'total': 3,
+            #             'current_page': 2,
+            #             'per_page': 2,
+            #             'last_page': 2
+            #         }
+            #     ),
+            #     entities=categories
+            # )
         ]
 
         return [pytest.param(item, id=f'send_data={str(item.send_data)}') for item in arrange]

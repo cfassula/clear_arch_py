@@ -178,7 +178,8 @@ class TestListCategoryUseCaseInt(unittest.TestCase):
             filter='a'
         )
         output = self.use_case.execute(input_param)
-        self.assertEqual(output, ListCategoriesUseCase.Output(
+        print(output)
+        use_case_output = ListCategoriesUseCase.Output(
             items=[
                 self.from_entity_to_output(entities[1]),
                 self.from_entity_to_output(entities[2]),
@@ -187,7 +188,9 @@ class TestListCategoryUseCaseInt(unittest.TestCase):
             current_page=1,
             per_page=2,
             last_page=2,
-        ))
+        )
+
+        self.assertEqual(output, use_case_output)
 
         input_param = ListCategoriesUseCase.Input(
             page=2,
@@ -215,6 +218,7 @@ class TestListCategoryUseCaseInt(unittest.TestCase):
             filter='a'
         )
         output = self.use_case.execute(input_param)
+        
         self.assertEqual(output, ListCategoriesUseCase.Output(
             items=[
                 self.from_entity_to_output(entities[0]),

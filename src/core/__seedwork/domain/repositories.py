@@ -203,7 +203,7 @@ class InMemoryRepository(RepositoryInterface[ET], ABC):
     def _get(self, entity_id: str) -> ET:
         '''Get an entity by its id'''
         entity = next(filter(lambda i: str(i.id) ==
-                             entity_id, self.items), None)
+                            entity_id, self.items), None)
         if not entity:
             raise NotFoundException(f"Entity not found using ID '{entity_id}'")
         return entity
