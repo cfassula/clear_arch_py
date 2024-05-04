@@ -1,10 +1,8 @@
-import json
 from pathlib import Path
-from typing import Any, Dict, Tuple, Type
+from typing import Dict
 import os
 import dj_database_url
-from pydantic_settings import BaseSettings, EnvSettingsSource, PydanticBaseSettingsSource, SettingsConfigDict
-from pydantic.fields import FieldInfo
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from pydantic import (
     Field,
@@ -28,6 +26,8 @@ class ConfigService(BaseSettings):
     installed_apps: list[str] = Field(init=False, default=[])
     middlewares: str = Field(init=False, default='')
     middlewares_additional: list[str] = Field(init=False, default=[])
+    test_keep_db: bool = True
+    test_use_migrations: bool = True
     
     @field_validator('database_conn')
     @classmethod
