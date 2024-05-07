@@ -3,7 +3,7 @@ import pytest
 
 
 @pytest.fixture(scope='session')
-def django_db_keep_db(request) -> bool:
+def django_db_keepdb(request) -> bool:
     from django.conf import settings  # pylint: disable=import-outside-toplevel
     return request.config.getvalue('reuse_db') or settings.TEST_KEEP_DB
 

@@ -1,6 +1,8 @@
 .history
 .github
 .docker/zsh/history/.zsh_history
+.docker/dbdata
+
 *.pyc
 
 __pypackages__

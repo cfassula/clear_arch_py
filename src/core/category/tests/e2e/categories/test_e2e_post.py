@@ -9,7 +9,6 @@ from core.category.infra.django_app.api import CategoryResource
 from core.category.tests.fixture.categories_api_fixture import CreateCategoryApiFixture, HttpExpect
 from django_app import container
 
-
 @pytest.mark.group('e2e')
 @pytest.mark.django_db
 class TestCategoriesPostE2E:
@@ -50,6 +49,7 @@ class TestCategoriesPostE2E:
     def test_post(self, http_expect: HttpExpect):
         response: Response = self.client_http.post(
             '/categories/', data=http_expect.request.body, format='json')
+
         assert response.status_code == 201
         assert 'data' in response.data
         data = response.data['data']
