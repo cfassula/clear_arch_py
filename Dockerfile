@@ -7,6 +7,7 @@ RUN apt update && apt install -y --no-install-recommends \
                     curl \
                     wget \
                     gcc \
+                    openssh-client \
                     libmariadb-dev \
                     pkg-config \
                     fonts-powerline  && rm -rf /var/lib/apt/lists/* 
