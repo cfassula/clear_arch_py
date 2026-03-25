@@ -3,6 +3,16 @@
 .docker/zsh/history/.zsh_history
 .docker/dbdata
 
+# Never commit private keys
+*.key
+*.pem
+*-key.pem
+*_key.pem
+private_key*
+id_rsa*
+id_dsa*
+id_ecdsa*
+
 *.pyc
 
 __pypackages__
